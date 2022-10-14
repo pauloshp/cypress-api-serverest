@@ -1,0 +1,18 @@
+{
+    "emailInvalido":{
+        "email": "emailErrado@qa.com",
+        "password": "teste"
+    },
+    "senhaInvalida":{
+        "email": "fulano@qa.com",
+        "password": "SenhaErrada"
+    },
+    "vazio":{
+        "email": "",
+        "password": ""
+    },
+    "tiposInvalidos": {
+        "email": 10,
+        "password": true
+    }
+}

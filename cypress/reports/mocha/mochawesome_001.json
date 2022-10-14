@@ -1,0 +1,192 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 5,
+    "passes": 3,
+    "pending": 0,
+    "failures": 2,
+    "start": "2022-06-22T16:17:33.753Z",
+    "end": "2022-06-22T16:17:36.105Z",
+    "duration": 2352,
+    "testsRegistered": 5,
+    "passPercent": 60,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "f4957d23-0897-4ef0-ac40-429be1469add",
+      "title": "",
+      "fullFile": "cypress/integration/login/login.spec.js",
+      "file": "cypress/integration/login/login.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "5c609d30-b9a5-4488-b5c6-f75b9a982777",
+          "title": "Casos de teste sobre a rota /login da API Serverest",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Deve realizar login com sucesso",
+              "fullTitle": "Casos de teste sobre a rota /login da API Serverest Deve realizar login com sucesso",
+              "timedOut": null,
+              "duration": 791,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "_usuarios.default.cadastrarUsuario().then(res => {\n  cy.writeFile('./cypress/fixtures/usuarioId.json', res.body);\n  cy.fixture('usuarioId.json').then(res => {\n    let id = res._id;\n    _usuarios.default.buscarUsuarioPorId(id).then(res => {\n      cy.writeFile('./cypress/fixtures/usuarioLogin.json', res.body);\n      cy.fixture('usuarioLogin.json').then(res => {\n        let usuario = {\n          email: res.email,\n          password: res.password\n        };\n        _login.default.login(usuario).then(res => {\n          cy.validarSchema(res, 'post-login', 200).then(res => expect(res).to.be.eq('Contrato válido'));\n          _validaServerest.default.validarLogin(res);\n          _login.default.salvarBearer(res);\n        });\n      });\n    });\n  });\n});",
+              "err": {},
+              "uuid": "43f2af14-2ef5-49cb-9eca-770f12a1c48d",
+              "parentUUID": "5c609d30-b9a5-4488-b5c6-f75b9a982777",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Não deve realizar login com email ou senha inválidos",
+              "fullTitle": "Casos de teste sobre a rota /login da API Serverest Não deve realizar login com email ou senha inválidos",
+              "timedOut": null,
+              "duration": 281,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture('login.json').then(res => {\n  let usuario = res.emailInvalido;\n  _login.default.login(usuario).then(res => {\n    cy.validarSchema(res, 'post-login', 400).then(res => expect(res).to.be.eq('Contrato válido'));\n    _validaServerest.default.validarLoginDadosInvalidos(res);\n  });\n});",
+              "err": {},
+              "uuid": "6c267763-8daa-4365-aa24-35b8e2045aaa",
+              "parentUUID": "5c609d30-b9a5-4488-b5c6-f75b9a982777",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Não deve realizar login com campos vazios",
+              "fullTitle": "Casos de teste sobre a rota /login da API Serverest Não deve realizar login com campos vazios",
+              "timedOut": null,
+              "duration": 495,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture('login.json').then(res => {\n  let usuario = res.vazio;\n  _login.default.login(usuario).then(res => {\n    cy.validarSchema(res, 'post-login', 400).then(res => expect(res).to.be.eq('Contrato válido'));\n    _validaServerest.default.validarLoginCamposVazios(res);\n  });\n});",
+              "err": {
+                "message": "Error: Erros encontrados na validação de contrato: \n  must have required property 'message', but receive object",
+                "estack": "Error: Erros encontrados na validação de contrato: \n  must have required property 'message', but receive object\n    at Context.eval (https://serverest.dev/__cypress/tests?p=cypress/support/index.js:140:13)",
+                "diff": null
+              },
+              "uuid": "9809b3f8-161e-44b5-83c2-e72f1dff9f82",
+              "parentUUID": "5c609d30-b9a5-4488-b5c6-f75b9a982777",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Não deve realizar login com valores de tipos inválidos",
+              "fullTitle": "Casos de teste sobre a rota /login da API Serverest Não deve realizar login com valores de tipos inválidos",
+              "timedOut": null,
+              "duration": 440,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture('login.json').then(res => {\n  let usuario = res.tiposInvalidos;\n  _login.default.login(usuario).then(res => {\n    cy.validarSchema(res, 'post-login', 400).then(res => expect(res).to.be.eq('Contrato válido'));\n    _validaServerest.default.validarLoginTiposInvalidos(res);\n  });\n});",
+              "err": {
+                "message": "Error: Erros encontrados na validação de contrato: \n  must have required property 'message', but receive object",
+                "estack": "Error: Erros encontrados na validação de contrato: \n  must have required property 'message', but receive object\n    at Context.eval (https://serverest.dev/__cypress/tests?p=cypress/support/index.js:140:13)",
+                "diff": null
+              },
+              "uuid": "98b4d950-884c-4bd1-b737-ed91120f7c13",
+              "parentUUID": "5c609d30-b9a5-4488-b5c6-f75b9a982777",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Deve excluir usuário",
+              "fullTitle": "Casos de teste sobre a rota /login da API Serverest Deve excluir usuário",
+              "timedOut": null,
+              "duration": 261,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture('usuarioId').then(res => {\n  let id = res._id;\n  _usuarios.default.excluirUsuario(id).then(res => {\n    cy.validarSchema(res, 'delete-usuarios', 200).then(res => expect(res).to.be.eq('Contrato válido'));\n    _validaServerest.default.validarExclusaoDeUsuario(res);\n  });\n});",
+              "err": {},
+              "uuid": "51df266d-11f2-4697-bbc9-4ec539c64632",
+              "parentUUID": "5c609d30-b9a5-4488-b5c6-f75b9a982777",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "43f2af14-2ef5-49cb-9eca-770f12a1c48d",
+            "6c267763-8daa-4365-aa24-35b8e2045aaa",
+            "51df266d-11f2-4697-bbc9-4ec539c64632"
+          ],
+          "failures": [
+            "9809b3f8-161e-44b5-83c2-e72f1dff9f82",
+            "98b4d950-884c-4bd1-b737-ed91120f7c13"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 2268,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mocha",
+        "quite": true,
+        "overwrite": false,
+        "html": true,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}
